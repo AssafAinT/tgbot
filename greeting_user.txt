@@ -1,0 +1,5 @@
+Hi! Welcome to Myexpensesbot - The bot which will help you to manage your expenses.
+the following supported commands are:
+/add - "amount_of_money and category"
+/get - Will show you your total expenses
+/getexpenses - "category" will show you the expenses on specified category
