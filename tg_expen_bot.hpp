@@ -37,16 +37,28 @@ namespace TgUser
             return m_userBalance[uid][expense];
         }
 
+        std::size_t GetTotalExpense(int64_t uid)
+        {
+            std::size_t sum = 0;
+            std::unordered_map<std::string, std::size_t>  innerMap = m_userBalance[uid];
+            for ( auto innerIt = innerMap.begin(); innerIt != innerMap.end(); ++innerIt)
+            {
+                sum += innerIt->second;
+            }
+
+            return sum;
+        }
+
         private: 
         std::vector<int64_t> m_UIDS; 
         std::unordered_map<int64_t , 
                            expense_map> m_userBalance;
     };
 
-    struct UserDB
+    /* struct UserDB
     {
 
-    }
+    } */
 } // namespace name
 
 #endif
