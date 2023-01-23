@@ -46,6 +46,16 @@ int main(int argc, char** argv)
         bot.getApi().sendMessage(message->chat->id, reply);
 
     });
+
+    bot.getEvents().onCommand("get", [&bot, &users](TgBot::Message::Ptr message) {
+        printf("User wrote %s\n", message->text.c_str());
+        //get the keyword
+        size_t expense = users.GetTotalExpense(message->chat->id);
+        std::string reply("your total expenses are: ");
+        reply += std::to_string(expense) + "\n";
+        bot.getApi().sendMessage(message->chat->id, reply);
+
+    });
     
     bot.getEvents().onAnyMessage([&bot](TgBot::Message::Ptr message) {
         printf("User wrote %s\n", message->text.c_str());
