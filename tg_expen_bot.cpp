@@ -3,21 +3,26 @@
 #include <iostream>//namespace std
 #include <string>//std::string
 #include <fstream>
+#include <sstream>
 #include "tg_expen_bot.hpp"
 
-int main() 
+int main(int argc, char** argv) 
 {
+    if (argc < 2){
+        throw std::invalid_argument("Invalid number of arguments, please enter bot token");
+        return 1;
+    }
     std::ifstream in("greeting_user.txt");
     in.seekg(0, std::ios::end);
     size_t size = in.tellg();
     std::string greeting_text(size, ' ');
     in.seekg(0);
     in.read(&greeting_text[0], size);
+
     TgUser::Users users;
 
-
     //start up the server through c++ wrapper 
-    TgBot::Bot bot("5974563516:AAEHwP2WpGqL1MQ-BI7BMx4v2dXtSiNwBEY");
+    TgBot::Bot bot(argv[1]);
 
     bot.getEvents().onCommand("start", [&bot, &greeting_text, &users](TgBot::Message::Ptr message) {
         bot.getApi().sendMessage(message->chat->id, greeting_text);
